@@ -1,14 +1,23 @@
 :root {
-    --form-vertical-offset: 40px;
+    --form-vertical-offset: 30px;
 }
 
-.auth-container {
+.container {
     display: flex;
     justify-content: center;
     margin: 20px;
 }
 
-.auth-container form {
+.container-title {
+    margin-bottom: var(--form-vertical-offset);
+    font-size: 16px;
+}
+
+.container-title h1 {
+    font-size: 30px;
+}
+
+.container form {
     width: 500px;
     border: 2px solid #ccc; /* Add a border with a light gray color */
     border-radius: 20px; /* Add rounded corners */
@@ -17,11 +26,6 @@
     padding: 50px;
 }
 
-.auth-container form h1 {
-    margin-bottom: var(--form-vertical-offset);
-    font-size: 30px;
-}
-
-.auth-container form button {
+.container form button {
     margin-top: var(--form-vertical-offset);
 }

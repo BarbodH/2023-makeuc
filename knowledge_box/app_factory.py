@@ -22,6 +22,8 @@ def create_app(is_first_launch: bool):
 
     from knowledge_box.models import login_manager
     login_manager.init_app(app)
+    login_manager.login_view = "auth.login_page"
+    login_manager.login_message_category = "info"
 
     app.app_context().push()
 
