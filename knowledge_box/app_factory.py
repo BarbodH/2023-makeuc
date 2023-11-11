@@ -5,7 +5,7 @@ from knowledge_box.add_passage.views import add_passage
 from knowledge_box.generate_questions.views import generate_questions
 
 
-def create_app():
+def create_app(is_first_launch: bool):
     app = Flask(__name__)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -13,6 +13,9 @@ def create_app():
 
     from knowledge_box.models import db
     db.init_app(app)
+    if is_first_launch:
+        with app.app_context():
+            db.create_all()
 
     from knowledge_box.models import bcrypt
     bcrypt.init_app(app)
