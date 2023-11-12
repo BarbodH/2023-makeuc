@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, FileField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 from flask_wtf.file import FileRequired, FileAllowed
+from knowledge_box.models import Topic
 
 
 class UploadForm(FlaskForm):
@@ -49,8 +50,7 @@ class TextForm(FlaskForm):
 
     passage_topic = SelectField(
         label='Passage topic',
-        choices=[('Mathematics', 'Mathematics'), ('Physics', 'Physics'), ('Chemistry', 'Chemistry'), ('Biology', 'Biology'),
-                 ('Psychology', 'Psychology'), ('History', 'History')],
+        choices=list(),
         validators=[DataRequired()]
     )
 
@@ -61,3 +61,8 @@ class TextForm(FlaskForm):
 
     submit = SubmitField('Next')
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        topics = [topic.topic_name for topic in Topic.query.all()]
+        for topic in topics:
+            self.passage_topic.choices.append((topic, topic))
