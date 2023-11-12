@@ -36,9 +36,9 @@
       <form method="POST">
         {{ proceed_form.hidden_tag() }}
         <h1>Passages</h1>
-        <ul class="list-group">
+        <ul class="list-group" id="passage-list">
           {% for passage in passages %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center" topic="{{ passage.topic.topic_name.title() }}">
               {{ passage.title }}
               <span class="badge bg-primary rounded-pill">{{ passage.topic.topic_name.title() }}</span>
             </li>
