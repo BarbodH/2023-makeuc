@@ -3,6 +3,7 @@ from knowledge_box.home.views import home
 from knowledge_box.auth.views import auth
 from knowledge_box.add_passage.views import add_passage
 from knowledge_box.generate_questions.views import generate_questions
+from knowledge_box.manage_passages.views import manage_passages
 
 
 def create_app(is_first_launch: bool):
@@ -32,5 +33,6 @@ def create_app(is_first_launch: bool):
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(add_passage, url_prefix="/add_passage")
     app.register_blueprint(generate_questions, url_prefix="/generate_questions")
+    app.register_blueprint(manage_passages, url_prefix="/manage_passages")
 
     return app

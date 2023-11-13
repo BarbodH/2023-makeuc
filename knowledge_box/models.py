@@ -43,5 +43,5 @@ class Passage(db.Model):
 
 class Topic(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    topic_name = db.Column(db.String(length=50), nullable=False)
+    topic_name = db.Column(db.String(length=50), nullable=False, unique=True)
     passages = db.relationship("Passage", backref="topic")

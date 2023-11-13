@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.table {
+  width: 800px;
+  vertical-align: middle;
+}
+
+tbody {
+  margin: 20px;
+  padding: 0px;
+  border-left: 1px solid var(--bs-gray-200);
+  border-right: 1px solid var(--bs-gray-200);
+}
+
+.btn {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 20px;
+  width: 60px;
+  padding: 0px;
+}
+
+.no-passages-container {
+  height: 150px;
+  text-align: center;
+}
+
+.no-passages-container h6 {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
+}
