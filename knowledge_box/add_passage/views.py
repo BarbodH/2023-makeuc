@@ -6,14 +6,12 @@ import cv2
 import io
 import numpy as np
 from knowledge_box.add_passage.model import OCR
-from flask_login import current_user, login_required
-from knowledge_box.models import User, Passage, Topic, db
+from flask_login import current_user
+from knowledge_box.models import User, Passage, db
 
 add_passage = Blueprint("add_passage", __name__, static_folder="static", template_folder="templates")
 
-
 @add_passage.route("/text", methods=["GET", "POST"])
-@login_required
 def text_page():
     form = TextForm()
     text = request.args.get('text')
@@ -22,12 +20,10 @@ def text_page():
     if form.validate_on_submit():
         if current_user.is_authenticated:
             user_backref = User.query.filter_by(username=current_user.username).first()
-            topic_backref = Topic.query.filter_by(topic_name=form.passage_topic.data).first()
-
             passage = Passage(
+                topic=form.passage_topic.data,
                 title=form.passage_name.data,
                 text=form.passage_text.data,
-                topic=topic_backref,
                 user=user_backref
             )
 
@@ -49,7 +45,6 @@ def text_page():
 
 
 @add_passage.route("/upload", methods=["GET", "POST"])
-@login_required
 def upload_page():
     form = UploadForm()
 

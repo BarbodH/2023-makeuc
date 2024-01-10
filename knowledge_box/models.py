@@ -17,7 +17,7 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
-    email = db.Column(db.String(length=255), nullable=False, unique=True)
+    email = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     passages = db.relationship("Passage", backref="user")
 
@@ -35,13 +35,7 @@ class User(db.Model, UserMixin):
 
 class Passage(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
+    topic = db.Column(db.String(length=50), nullable=False)
     title = db.Column(db.String(length=50), nullable=False, unique=True)
     text = db.Column(db.String(length=4000), nullable=False, unique=True)
-    topic_id = db.Column(db.Integer(), db.ForeignKey("topic.id"))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
-
-
-class Topic(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    topic_name = db.Column(db.String(length=50), nullable=False, unique=True)
-    passages = db.relationship("Passage", backref="topic")

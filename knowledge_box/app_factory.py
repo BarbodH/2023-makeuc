@@ -3,10 +3,9 @@ from knowledge_box.home.views import home
 from knowledge_box.auth.views import auth
 from knowledge_box.add_passage.views import add_passage
 from knowledge_box.generate_questions.views import generate_questions
-from knowledge_box.manage_passages.views import manage_passages
 
 
-def create_app(is_first_launch: bool):
+def create_app():
     app = Flask(__name__)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -14,17 +13,12 @@ def create_app(is_first_launch: bool):
 
     from knowledge_box.models import db
     db.init_app(app)
-    if is_first_launch:
-        with app.app_context():
-            db.create_all()
 
     from knowledge_box.models import bcrypt
     bcrypt.init_app(app)
 
     from knowledge_box.models import login_manager
     login_manager.init_app(app)
-    login_manager.login_view = "auth.login_page"
-    login_manager.login_message_category = "info"
 
     app.app_context().push()
 
@@ -33,6 +27,5 @@ def create_app(is_first_launch: bool):
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(add_passage, url_prefix="/add_passage")
     app.register_blueprint(generate_questions, url_prefix="/generate_questions")
-    app.register_blueprint(manage_passages, url_prefix="/manage_passages")
 
     return app

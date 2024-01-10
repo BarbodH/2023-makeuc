@@ -163,6 +163,3 @@ cython_debug/
 
 # IDE configurations
 .idea
-
-# Empty file indicating whether project has undergone initial setup
-.initialized

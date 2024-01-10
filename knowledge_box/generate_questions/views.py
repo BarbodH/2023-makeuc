@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, request, url_for
+from knowledge_box.models import Passage
 from knowledge_box.generate_questions.forms import ProceedForm
-from knowledge_box.models import Passage, Topic
+from knowledge_box.models import Passage
 from knowledge_box.generate_questions.model import GenerateQuestions
-from flask_login import login_required
 
 generate_questions = Blueprint("generate_questions", __name__, static_folder="static", template_folder="templates")
 
@@ -10,7 +10,6 @@ generator = GenerateQuestions()
 
 
 @generate_questions.route("/choose_passages", methods=["GET", "POST"])
-@login_required
 def choose_passages_page():
     proceed_form = ProceedForm()
 
@@ -21,7 +20,14 @@ def choose_passages_page():
         selected_passage_titles_str = delimiter.join(selected_passage_titles)
         return redirect(url_for("generate_questions.quiz_page", selected_passage_titles_str=selected_passage_titles_str))
 
-    topics = [topic.topic_name for topic in Topic.query.all()]
+    topics = [
+        "mathematics",
+        "physics",
+        "chemistry",
+        "biology",
+        "psychology",
+        "history"
+    ]
 
     passages = Passage.query.all()
 
@@ -29,7 +35,6 @@ def choose_passages_page():
 
 
 @generate_questions.route("/quiz")
-@login_required
 def quiz_page():
     delimiter = "$DELIMITER$"
     selected_passage_titles_str = request.args.get("selected_passage_titles_str")

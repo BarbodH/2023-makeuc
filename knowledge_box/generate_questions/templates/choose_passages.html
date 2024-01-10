@@ -36,14 +36,18 @@
       <form method="POST">
         {{ proceed_form.hidden_tag() }}
         <h1>Passages</h1>
-        <ul class="list-group" id="passage-list">
+        <table class="table table-hover" id="choose-passages-table-passages">
+          <tbody>
           {% for passage in passages %}
-            <li class="list-group-item d-flex justify-content-between align-items-center" topic="{{ passage.topic.topic_name.title() }}">
-              {{ passage.title }}
-              <span class="badge bg-primary rounded-pill">{{ passage.topic.topic_name.title() }}</span>
-            </li>
+          <tr id="choose-passages-tr-{{ passage.title }}" topic="{{ passage.topic }}">
+            <td><input type="checkbox" name="passages" value="{{ passage.title }}"></td>
+            <td><span class="badge bg-info">{{ passage.topic.title() }}</span></td>
+            <td>{{ passage.title }}</td>
+          </tr>
           {% endfor %}
-        </ul>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" id="choose_passages_button_proceed">Proceed to Quiz</button>
       </form>
     </div>
   </div>
